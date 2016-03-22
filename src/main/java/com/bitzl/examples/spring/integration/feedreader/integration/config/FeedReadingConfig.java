@@ -1,5 +1,6 @@
 package com.bitzl.examples.spring.integration.feedreader.integration.config;
 
+import com.bitzl.examples.spring.integration.feedreader.integration.transformer.SummaryTransformer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.config.EnableIntegration;
@@ -25,7 +26,7 @@ public class FeedReadingConfig {
         URL url = new URL("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml");
         return IntegrationFlows
                 .from((IntegrationFlows.MessageSourcesFunction) messageSources -> messageSources.feed(url, "BBC Key"))
-//                .transform(new SummaryTransfomer())
+                .transform(new SummaryTransformer())
                 .handle(System.out::println)
                 .get();
     }
